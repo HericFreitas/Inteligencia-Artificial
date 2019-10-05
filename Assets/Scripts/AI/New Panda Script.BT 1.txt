@@ -1,0 +1,42 @@
+tree "Root"
+	parallel
+		repeat mute tree ("Patrulhar")
+		repeat mute tree ("Morrer")
+		repeat mute tree ("Ataque")
+
+tree ("Fugir")
+	while IsHealthLessThan(40)
+		while InDanger(5)
+			TakeCover
+		tree ("Vida")
+
+tree ("Patrulhar")
+	fallback
+		tree ("Fugir")
+		while not IsHealthLessThan(60)
+		
+tree ("Morrer")
+	while IsHealthLessThan(1.0)
+		explosao
+
+tree ("Municao")
+	random(1,1,1,1)
+		PickDestination(1,0)
+		PickDestination(0,1)
+		PickDestination(0,0)
+		PickDestination(5,5)
+
+tree ("Vida")
+	random(1,1,1,1)
+		PickDestination(1,0)
+		PickDestination(0,1)
+		PickDestination(0,0)
+		PickDestination(5,5)
+
+tree ("Ataque")
+	while not IsHealthLessThan(60.0)
+		while InDanger(5.0)
+			Atacar
+		Parar
+
+			

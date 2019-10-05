@@ -1,0 +1,12 @@
+tree("Root")
+	parallel
+		sequence
+			tree ("Patroll")
+			tree ("Attack")
+
+
+tree("Patroll")
+	PickRandomDestination
+
+tree("Attack")
+	Attack

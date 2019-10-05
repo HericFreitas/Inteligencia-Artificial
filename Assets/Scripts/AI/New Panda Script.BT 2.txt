@@ -1,0 +1,4 @@
+tree("Root")
+	while IsHealthLessThan(40f)
+		while InDanger(5f)
+			TakeCover

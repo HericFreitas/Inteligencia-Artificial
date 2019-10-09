@@ -12,7 +12,6 @@ public class TankRapariga : MonoBehaviour
     void Start()
     {
         tankai = GetComponent<TankAI>();
-
     }
 
     // Update is called once per frame
@@ -21,10 +20,15 @@ public class TankRapariga : MonoBehaviour
         
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        PickRandomDestination();
+    }
+
     [Task]
     public void PickRandomDestination()
     {
-        Vector3 destination = new Vector3(Random.Range(-45.0f, 45.0f), 0.0f, Random.Range(-45.0f, 45.0f));
+        Vector3 destination = new Vector3(Random.Range(-50.0f, 50.0f), 0.0f, Random.Range(-50.0f, 50.0f));
         tankai.Agent.SetDestination(destination);
         Task.current.Succeed();
     }
@@ -76,6 +80,7 @@ public class TankRapariga : MonoBehaviour
     {
         return tankai.Targets.Count == 0;
     }
+
     [Task]
     public void Atacar()
     {
@@ -88,6 +93,6 @@ public class TankRapariga : MonoBehaviour
     {
         tankai.StopFire();
     
-    }
+    }   
 }
-
+    

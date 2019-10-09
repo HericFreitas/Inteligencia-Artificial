@@ -1,12 +1,7 @@
 tree("Root")
-	parallel
-		sequence
-			tree ("Patroll")
-			tree ("Attack")
+	tree("Patrulhar")
 
 
-tree("Patroll")
-	PickRandomDestination
-
-tree("Attack")
-	Attack
+tree ("Patrulhar")
+	fallback
+		PickRandomDestination

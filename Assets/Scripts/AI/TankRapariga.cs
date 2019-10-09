@@ -20,6 +20,7 @@ public class TankRapariga : MonoBehaviour
         
     }
 
+    [Task]
     private void OnCollisionEnter(Collision collision)
     {
         PickRandomDestination();
@@ -92,7 +93,7 @@ public class TankRapariga : MonoBehaviour
     public void Parar()
     {
         tankai.StopFire();
-    
-    }   
+
+    }
 }
-    
+

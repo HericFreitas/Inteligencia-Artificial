@@ -1,17 +1,26 @@
 tree ("Root")
-	repeat mute tree ("Patrulhar")	
+	repeat tree ("Patrulhar")	
 
 tree ("Patrulhar")
 	fallback
 		while not IsHealthLessThan(60.0)
-			sequence
+			fallback
 				while ninguem
-					PickRandomDestination
+					sequence
+						PickRandomDestination
+						Parar
 				while not ninguem
-					mute tree ("Ataque")
-
-tree("Ataque")
-	fallback
-		while InDanger(5.5)
-			Atacar
-		Parar
+					fallback
+						while InDanger(7.0)
+							sequence	
+								Atacar
+		while IsHealthLessThan(60.0)
+			fallback
+				while ninguem
+					sequence
+						PickRandomDestination
+						Parar
+				while not ninguem
+					sequence
+						TakeCover
+						Parar

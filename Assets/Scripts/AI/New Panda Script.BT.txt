@@ -19,8 +19,9 @@ tree ("Atacar")
 		while not IsHealthLessThan(60.0)
 			fallback
 				while not ninguem
-					sequence
-						Atacar
+					fallback
+						while NotDanger(5.0)
+							Atacar
 
 tree("Fugir")
 	fallback

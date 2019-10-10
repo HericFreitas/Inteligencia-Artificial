@@ -65,6 +65,12 @@ public class TankRapariga : MonoBehaviour
     }
 
     [Task]
+    public bool NotDanger(float minDistance)
+    {
+        return Vector3.Distance(tankai.Targets[0], transform.position) > minDistance;
+    }
+
+    [Task]
     public void explosao()
     {
         tankai.SelfDestruction();

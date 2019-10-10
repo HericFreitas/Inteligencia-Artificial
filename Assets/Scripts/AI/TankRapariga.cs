@@ -21,15 +21,9 @@ public class TankRapariga : MonoBehaviour
     }
 
     [Task]
-    private void OnCollisionEnter(Collision collision)
-    {
-        PickRandomDestination();
-    }
-
-    [Task]
     public void PickRandomDestination()
     {
-        Vector3 destination = new Vector3(Random.Range(-50.0f, 50.0f), 0.0f, Random.Range(-50.0f, 50.0f));
+        Vector3 destination = new Vector3(Random.Range(-35.0f, 35.0f), 0.0f, Random.Range(-35.0f, 35.0f));
         tankai.Agent.SetDestination(destination);
         Task.current.Succeed();
     }
@@ -51,7 +45,7 @@ public class TankRapariga : MonoBehaviour
     [Task]
     public void TakeCover()
     {
-        Vector3 awayFromTarget = (transform.position - tankai.Agent.transform.position).normalized;
+        Vector3 awayFromTarget = (transform.position - tankai.Targets[0]).normalized;
         Vector3 destination = transform.position + awayFromTarget * 5;
         tankai.Agent.SetDestination(destination);
         Task.current.Succeed();
@@ -74,6 +68,7 @@ public class TankRapariga : MonoBehaviour
     public void explosao()
     {
         tankai.SelfDestruction();
+        Task.current.Succeed();
     }
 
     [Task]
@@ -87,13 +82,21 @@ public class TankRapariga : MonoBehaviour
     {
         transform.LookAt(tankai.Targets[0]);
         tankai.StartFire();
+        Task.current.Succeed();
     }
 
     [Task]
     public void Parar()
     {
         tankai.StopFire();
+        Task.current.Succeed();
 
+    }
+
+    [Task]
+    public bool Parede(float mindistance)
+    {
+        return Physics.Raycast(this.transform.position, transform.TransformDirection(Vector3.forward), mindistance, 0);   
     }
 }
 

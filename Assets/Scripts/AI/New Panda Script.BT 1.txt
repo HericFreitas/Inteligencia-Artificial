@@ -1,5 +1,5 @@
 tree ("Root")
-	repeat tree ("Patrulhar")	
+	repeat mute tree ("Patrulhar")	
 
 tree ("Patrulhar")
 	fallback
@@ -11,16 +11,18 @@ tree ("Patrulhar")
 						Parar
 				while not ninguem
 					fallback
-						while InDanger(7.0)
+						while InDanger(9.0)
 							sequence	
 								Atacar
+	fallback
 		while IsHealthLessThan(60.0)
 			fallback
 				while ninguem
 					sequence
 						PickRandomDestination
 						Parar
-				while not ninguem
-					sequence
-						TakeCover
-						Parar
+					fallback
+						while not ninguem
+							sequence
+								TakeCover
+								Parar

@@ -84,6 +84,12 @@ public class TankRapariga : MonoBehaviour
     }
 
     [Task]
+    public bool doisoumais()
+    {
+        return tankai.Targets.Count >= 2;
+    }
+
+    [Task]
     public void Atacar()
     {
         transform.LookAt(tankai.Targets[0]);

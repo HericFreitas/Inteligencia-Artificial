@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using Panda;
 
 public class TankAI : MonoBehaviour
 {
@@ -25,7 +24,7 @@ public class TankAI : MonoBehaviour
     {
         return Vector3.Distance(targetPosition, Position);
     }
-
+   
     private void Awake()
     {
         m_MovementScript = GetComponent<TankMovement>();
@@ -43,6 +42,30 @@ public class TankAI : MonoBehaviour
     public void Rotate(float rotate)
     {
         m_MovementScript.Turn(rotate);
+    }
+
+    public Vector3 Direction(Vector3 target)
+    {
+        return target - transform.position; ;
+    }
+
+    public float Angle(Vector3 target)
+    {
+        Vector3 targetDir = Direction(target);
+        return Vector3.SignedAngle(targetDir, transform.forward, Vector3.up);
+    }
+
+    public void LookAt(Vector3 target)
+    {
+        float angle = Angle(target);
+        if (Mathf.Abs(angle) > 0.1f)
+        {
+            Rotate(-angle);
+        }
+        else
+        {
+            Rotate(0.0f);
+        }
     }
 
     public void SelfDestruction()

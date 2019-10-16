@@ -17,7 +17,10 @@ public class TankRapariga : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(tankai.Health <= 0.0)
+        {
+            Destroy(this);
+        }
     }
 
     [Task]
@@ -92,7 +95,7 @@ public class TankRapariga : MonoBehaviour
     [Task]
     public void Atacar()
     {
-        transform.LookAt(tankai.Targets[0]);
+        tankai.LookAt(tankai.Targets[0]);
         tankai.StartFire();
         Task.current.Succeed();
     }

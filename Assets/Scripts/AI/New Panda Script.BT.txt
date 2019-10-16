@@ -16,13 +16,10 @@ tree ("Atacar")
 	fallback
 		while not ninguem
 			fallback
-				while doisoumais
-					sequence
-						TakeCover
-						Parar
-		fallback
-			while NotDanger(5.0)
-				Atacar
+				while not doisoumais
+					fallback
+						while NotDanger(3.0)
+							Atacar
 
 tree("Fugir")
 	fallback
@@ -32,7 +29,3 @@ tree("Fugir")
 					sequence
 						TakeCover
 						Parar
-		fallback
-			while ninguem
-				sequence
-					tree ("Patrulhar")

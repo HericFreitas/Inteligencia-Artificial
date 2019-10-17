@@ -8,6 +8,9 @@ public class TankRapariga : MonoBehaviour
 
     private TankAI tankai;
 
+    Vector3 lookPos;
+    Quaternion rotation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,10 +20,9 @@ public class TankRapariga : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(tankai.Health <= 0.0)
-        {
-            Destroy(this);
-        }
+        lookPos = tankai.Targets[0] - transform.position;
+        rotation = Quaternion.LookRotation(lookPos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 3);
     }
 
     [Task]
@@ -95,7 +97,6 @@ public class TankRapariga : MonoBehaviour
     [Task]
     public void Atacar()
     {
-        tankai.LookAt(tankai.Targets[0]);
         tankai.StartFire();
         Task.current.Succeed();
     }
@@ -112,6 +113,13 @@ public class TankRapariga : MonoBehaviour
     public bool Parede(float mindistance)
     {
         return Physics.Raycast(this.transform.position, transform.TransformDirection(Vector3.forward), mindistance, 0);   
+    }
+
+    [Task]
+    public void Stop()
+    {
+        tankai.Agent.Stop();
+        Task.current.Succeed();
     }
 }
 

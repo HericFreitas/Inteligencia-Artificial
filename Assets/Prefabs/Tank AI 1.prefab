@@ -5382,7 +5382,7 @@ GameObject:
   - component: {fileID: 3586468932249532997}
   - component: {fileID: 2469140487665207861}
   - component: {fileID: 1092922433773994640}
-  - component: {fileID: 5890105780133856533}
+  - component: {fileID: 3161993504327814516}
   - component: {fileID: 8532995400827251413}
   m_Layer: 9
   m_Name: Tank AI 1
@@ -5751,7 +5751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca871f32e6f0d8845ab0b3e3360cbd64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5890105780133856533
+--- !u!114 &3161993504327814516
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5760,7 +5760,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1448907371205044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9220898ddb72fc4e8f011ac5eb2957a, type: 3}
+  m_Script: {fileID: 11500000, guid: d35d505046cf2f84791260687b000474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &8532995400827251413

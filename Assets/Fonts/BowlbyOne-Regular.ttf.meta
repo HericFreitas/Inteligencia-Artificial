@@ -1,18 +1,23 @@
 fileFormatVersion: 2
-guid: 3d7fe0a26ba72d949874021dc3d6995e
-timeCreated: 1432116480
-licenseType: Store
+guid: de21a2d5246fa44418adcc6b141e7afb
 TrueTypeFontImporter:
-  serializedVersion: 2
+  externalObjects: {}
+  serializedVersion: 4
   fontSize: 16
   forceTextureCase: -2
-  characterSpacing: 1
-  characterPadding: 0
+  characterSpacing: 0
+  characterPadding: 1
   includeFontData: 1
-  use2xBehaviour: 0
-  fontNames: []
+  fontName: Bowlby One
+  fontNames:
+  - Bowlby One
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 3d7fe0a26ba72d949874021dc3d6995e, type: 3}
   customCharacters: 
   fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 

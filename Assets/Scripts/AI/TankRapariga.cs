@@ -6,9 +6,8 @@ using Panda;
 public class TankRapariga : MonoBehaviour
 {
     private TankAI tankai;
-    
-    Vector3 lookPos;
-    Quaternion rotation;
+
+    public float distanceForAttack;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +18,7 @@ public class TankRapariga : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if(tankai.Targets != null)
         {
             tankai.TurretLookAt(tankai.Targets[0]);
@@ -91,6 +91,12 @@ public class TankRapariga : MonoBehaviour
     }
 
     [Task]
+    public bool haum()
+    {
+        return tankai.Targets.Count == 1;
+    }
+
+    [Task]
     public bool doisoumais()
     {
         return tankai.Targets.Count >= 2;
@@ -99,13 +105,36 @@ public class TankRapariga : MonoBehaviour
     [Task]
     public void Atacar()
     {
-        tankai.StartFire();
-        Task.current.Succeed();
+        tankai.StopMotionToDestination();
+        Parar();
+        if(tankai.DistanceToTarget(tankai.Targets[0]) < distanceForAttack)
+        {
+            tankai.Agent.isStopped = false;
+            tankai.SetDestination((tankai.Position - tankai.Targets[0]).normalized);
+            Task.current.Succeed();
+            Debug.Log("Aproximar");
+        }
+        if(tankai.DistanceToTarget(tankai.Targets[0]) > distanceForAttack)
+        {
+            tankai.Agent.isStopped = false;
+            tankai.SetDestination(tankai.Direction(tankai.Targets[0]).normalized);
+            Task.current.Succeed();
+            Debug.Log("afastar");
+        }
+        if(tankai.DistanceToTarget(tankai.Targets[0]) == distanceForAttack)
+        {
+            tankai.Agent.isStopped = false;
+            tankai.StartFire();
+            Task.current.Succeed();
+            Debug.Log("Atirar");
+        }
+        
     }
 
     [Task]
     public void Parar()
     {
+        tankai.TurretRotate(0.0f);
         tankai.StopFire();
         Task.current.Succeed();
 

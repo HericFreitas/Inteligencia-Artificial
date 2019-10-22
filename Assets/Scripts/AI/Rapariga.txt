@@ -1,0 +1,30 @@
+tree("Root")
+	parallel
+		repeat mute tree ("Patroll")
+		repeat mute tree ("Attack")
+		repeat mute tree ("Flee")
+
+tree("Attack")
+	fallback
+		while haum
+			fallback
+				while Parede (6.3)
+					sequence
+						Atacar
+				while not Parede (6.3)
+					sequence
+						Atacar
+
+tree("Patroll")
+	fallback
+		while ninguem
+			sequence
+				PickRandomDestination
+				MoveDestination
+				Parar
+
+tree("Flee")
+	fallback
+		while doisoumais
+			sequence
+				TakeCover

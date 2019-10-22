@@ -28,6 +28,8 @@ public class TankRapariga : MonoBehaviour
     [Task]
     public void PickRandomDestination()
     {
+        tankai.StopMotionToDestination();
+        tankai.Agent.isStopped = false;
         Vector3 destination = new Vector3(Random.Range(-35.0f, 35.0f), 0.0f, Random.Range(-35.0f, 35.0f));
         tankai.Agent.SetDestination(destination);
         Task.current.Succeed();
@@ -112,14 +114,14 @@ public class TankRapariga : MonoBehaviour
             tankai.Agent.isStopped = false;
             tankai.SetDestination((tankai.Position - tankai.Targets[0]).normalized);
             Task.current.Succeed();
-            Debug.Log("Aproximar");
+            Debug.Log("Afastar");
         }
         if(tankai.DistanceToTarget(tankai.Targets[0]) > distanceForAttack)
         {
             tankai.Agent.isStopped = false;
             tankai.SetDestination(tankai.Direction(tankai.Targets[0]).normalized);
             Task.current.Succeed();
-            Debug.Log("afastar");
+            Debug.Log("Aproximar");
         }
         if(tankai.DistanceToTarget(tankai.Targets[0]) == distanceForAttack)
         {

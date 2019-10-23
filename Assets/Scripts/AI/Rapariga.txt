@@ -3,28 +3,43 @@ tree("Root")
 		repeat mute tree ("Patroll")
 		repeat mute tree ("Attack")
 		repeat mute tree ("Flee")
-
+		
 tree("Attack")
 	fallback
 		while haum
 			fallback
+				while not Parede (6.3)
+					fallback
+						while InDanger (15.7)
+							sequence
+								Atacar
+						while not InDanger (15.7)
+							sequence 
+								Mover (0.75)
+								Parar
 				while Parede (6.3)
 					sequence
-						Atacar
-				while not Parede (6.3)
-					sequence
-						Atacar
+						Parar
 
 tree("Patroll")
 	fallback
 		while ninguem
-			sequence
-				PickRandomDestination
-				MoveDestination
-				Parar
+			fallback
+				while not Parede (6.0)
+					sequence
+						PickRandomDestination
+						MoveDestination
+						Parar
+				while Parede (6.0)
+					sequence
+						Stop
+						PickRandomDestination
+						MoveDestination
+						Parar
 
 tree("Flee")
 	fallback
 		while doisoumais
 			sequence
-				TakeCover
+				Mover(-0.75)
+				Parar

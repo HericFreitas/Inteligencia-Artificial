@@ -7,8 +7,6 @@ public class TankRapariga : MonoBehaviour
 {
     private TankAI tankai;
 
-    public float distanceForAttack;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +16,14 @@ public class TankRapariga : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Parede(6.0f))
+        {
+            Debug.Log("PAREDE!!!");
+        }
+        else
+        {
+            Debug.Log("LIN");
+        }
 
         if(tankai.Targets != null)
         {
@@ -28,17 +34,8 @@ public class TankRapariga : MonoBehaviour
     [Task]
     public void PickRandomDestination()
     {
-        tankai.StopMotionToDestination();
-        tankai.Agent.isStopped = false;
+        tankai.Agent.ResetPath();
         Vector3 destination = new Vector3(Random.Range(-35.0f, 35.0f), 0.0f, Random.Range(-35.0f, 35.0f));
-        tankai.Agent.SetDestination(destination);
-        Task.current.Succeed();
-    }
-
-    [Task]
-    public void PickDestination(float x, float z)
-    {
-        Vector3 destination = new Vector3(x, 0.0f, z);
         tankai.Agent.SetDestination(destination);
         Task.current.Succeed();
     }
@@ -50,33 +47,9 @@ public class TankRapariga : MonoBehaviour
     }
 
     [Task]
-    public void TakeCover()
-    {
-        tankai.Agent.isStopped = true;
-        Vector3 awayFromTarget = (transform.position - tankai.Targets[0]).normalized;
-        Vector3 destination = transform.position + awayFromTarget * 5;
-        tankai.Agent.isStopped = false;
-        tankai.Agent.SetDestination(destination);
-        Task.current.Succeed();
-    }
-
-    [Task]
-    public bool Turn(float angle)
-    {
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.up) * transform.rotation;
-        return true;
-    }
-
-    [Task]
     public bool InDanger(float minDistance)
     {
-        return Vector3.Distance(tankai.Targets[0], transform.position) < minDistance;
-    }
-
-    [Task]
-    public bool NotDanger(float minDistance)
-    {
-        return Vector3.Distance(tankai.Targets[0], transform.position) > minDistance;
+        return Vector3.Distance(tankai.Targets[0], transform.position) <= minDistance;
     }
 
     [Task]
@@ -107,30 +80,9 @@ public class TankRapariga : MonoBehaviour
     [Task]
     public void Atacar()
     {
-        tankai.StopMotionToDestination();
-        Parar();
-        if(tankai.DistanceToTarget(tankai.Targets[0]) < distanceForAttack)
-        {
-            tankai.Agent.isStopped = false;
-            tankai.SetDestination((tankai.Position - tankai.Targets[0]).normalized);
-            Task.current.Succeed();
-            Debug.Log("Afastar");
-        }
-        if(tankai.DistanceToTarget(tankai.Targets[0]) > distanceForAttack)
-        {
-            tankai.Agent.isStopped = false;
-            tankai.SetDestination(tankai.Direction(tankai.Targets[0]).normalized);
-            Task.current.Succeed();
-            Debug.Log("Aproximar");
-        }
-        if(tankai.DistanceToTarget(tankai.Targets[0]) == distanceForAttack)
-        {
-            tankai.Agent.isStopped = false;
-            tankai.StartFire();
-            Task.current.Succeed();
-            Debug.Log("Atirar");
-        }
-        
+        tankai.LookAt(tankai.Targets[0]);
+        tankai.StartFire();
+        Task.current.Succeed();   
     }
 
     [Task]
@@ -156,7 +108,18 @@ public class TankRapariga : MonoBehaviour
     public bool Parede(float min)
     {
         RaycastHit hit;
-        return Physics.Raycast(tankai.Position, tankai.transform.forward ,out hit, min);   
+        int layer = LayerMask.GetMask("Obstacles");
+        Ray ray = new Ray(tankai.Position, tankai.TurretDirection);
+        Debug.DrawLine(ray.origin, ray.origin + ray.direction * min, Color.blue);
+        return Physics.Raycast(ray, min, layer);   
+    }
+
+    [Task]
+    public void Mover(float i)
+    {
+        tankai.Agent.ResetPath();
+        tankai.Move(i);
+        Task.current.Succeed();
     }
 
     [Task]
@@ -166,4 +129,3 @@ public class TankRapariga : MonoBehaviour
         Task.current.Succeed();
     }
 }
-

@@ -34,7 +34,7 @@ public class TankAI : MonoBehaviour
     #endregion
 
     #region [ Turret Methods ]
-    public Vector3 TurretDirection => m_ShootingScript.m_FireTransform.forward;
+    public Vector3 TurretDirection => m_ShootingScript.m_TurretTransform.forward;
 
     public void TurretRotate(float rotate)
     {

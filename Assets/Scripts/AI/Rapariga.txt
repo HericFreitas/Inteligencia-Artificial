@@ -11,8 +11,15 @@ tree("Attack")
 				while not Parede (6.3)
 					fallback
 						while InDanger (15.7)
-							sequence
-								Atacar
+							fallback
+								while NotDanger (14.0)
+									parallel
+										Atacar
+										tree ("Random")
+								while not NotDanger (14.0)
+									sequence 
+										Parar
+										Mover (-1.0)
 						while not InDanger (15.7)
 							sequence 
 								Mover (0.75)
@@ -43,3 +50,34 @@ tree("Flee")
 			sequence
 				Mover(-0.75)
 				Parar
+
+tree("Random")
+	fallback
+		Random(3,3)
+			tree ("Primeira")
+			tree ("Segunda")
+
+tree("Primeira")
+	fallback
+		while Player(20.0)
+			sequence
+				Rotate(90.0)
+				Mover(1.0)
+				Mover(1.0)
+				Mover(1.0)
+		while not Player (20.0)
+			sequence
+				RotateForPlayer
+
+tree("Segunda")
+	fallback
+		while Player(40.0)
+			sequence
+				Rotate(-90.0)
+				Mover(1.0)
+				Mover(1.0)
+				Mover(1.0)
+		while not Player (40.0)
+			sequence
+				RotateForPlayer
+	

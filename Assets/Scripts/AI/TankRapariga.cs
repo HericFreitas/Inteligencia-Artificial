@@ -53,6 +53,12 @@ public class TankRapariga : MonoBehaviour
     }
 
     [Task]
+    public bool NotDanger(float minDistance)
+    {
+        return Vector3.Distance(tankai.Targets[0], transform.position) > minDistance;
+    }
+
+    [Task]
     public void explosao()
     {
         tankai.SelfDestruction();
@@ -107,7 +113,6 @@ public class TankRapariga : MonoBehaviour
     [Task]
     public bool Parede(float min)
     {
-        RaycastHit hit;
         int layer = LayerMask.GetMask("Obstacles");
         Ray ray = new Ray(tankai.Position, tankai.TurretDirection);
         Debug.DrawLine(ray.origin, ray.origin + ray.direction * min, Color.blue);
@@ -115,10 +120,33 @@ public class TankRapariga : MonoBehaviour
     }
 
     [Task]
+    public bool Player(float min)
+    {
+        int layer = LayerMask.GetMask("Players");
+        Ray ray = new Ray(tankai.TurretDirection, tankai.transform.forward);
+        Debug.DrawLine(ray.origin, ray.origin + ray.direction * min, Color.blue);
+        return Physics.Raycast(ray, min, layer);
+    }
+
+    [Task]
     public void Mover(float i)
     {
         tankai.Agent.ResetPath();
         tankai.Move(i);
+        Task.current.Succeed();
+    }
+
+    [Task]
+    public void Rotate(float i)
+    {
+        tankai.Rotate(i);
+        Task.current.Succeed();
+    }
+
+    [Task]
+    public void RotateForPlayer()
+    {
+        tankai.LookAt(tankai.Targets[0]);
         Task.current.Succeed();
     }
 

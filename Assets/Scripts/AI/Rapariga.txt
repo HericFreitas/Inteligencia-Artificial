@@ -8,23 +8,25 @@ tree("Attack")
 	fallback
 		while haum
 			fallback
-				while not Parede (6.3)
+				while not Parede (7.0)
 					fallback
 						while InDanger (15.7)
 							fallback
 								while NotDanger (14.0)
 									parallel
-										Atacar
+										sequence
+											Stop
+											Atacar
 										tree ("Random")
 								while not NotDanger (14.0)
 									sequence 
 										Parar
-										Mover (-1.0)
+										Mover (-0.28)
 						while not InDanger (15.7)
 							sequence 
-								Mover (0.75)
+								Mover (0.28)
 								Parar
-				while Parede (6.3)
+				while Parede (7.0)
 					sequence
 						Parar
 
@@ -48,7 +50,7 @@ tree("Flee")
 	fallback
 		while doisoumais
 			sequence
-				Mover(-0.75)
+				Mover(-0.28)
 				Parar
 
 tree("Random")

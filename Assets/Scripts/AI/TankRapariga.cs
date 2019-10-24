@@ -7,6 +7,7 @@ public class TankRapariga : MonoBehaviour
 {
     private TankAI tankai;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,15 +17,6 @@ public class TankRapariga : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Parede(6.0f))
-        {
-            Debug.Log("PAREDE!!!");
-        }
-        else
-        {
-            Debug.Log("LIN");
-        }
-
         if(tankai.Targets != null)
         {
             tankai.TurretLookAt(tankai.Targets[0]);
@@ -124,7 +116,6 @@ public class TankRapariga : MonoBehaviour
     {
         int layer = LayerMask.GetMask("Players");
         Ray ray = new Ray(tankai.TurretDirection, tankai.transform.forward);
-        Debug.DrawLine(ray.origin, ray.origin + ray.direction * min, Color.blue);
         return Physics.Raycast(ray, min, layer);
     }
 
